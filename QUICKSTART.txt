@@ -1,0 +1,145 @@
+╔═══════════════════════════════════════════════════════════════╗
+║     Webb Austin Tech Events - Quick Start Guide              ║
+╚═══════════════════════════════════════════════════════════════╝
+
+📋 5-MINUTE SETUP
+─────────────────────────────────────────────────────────────────
+
+Step 1: Install Dependencies
+    pip install -r requirements.txt
+
+Step 2: Get Gmail App Password
+    1. Go to: https://myaccount.google.com/security
+    2. Click "2-Step Verification" (enable if needed)
+    3. Click "App Passwords"
+    4. Select "Mail" and generate
+    5. Copy the 16-character password
+
+Step 3: Configure Email
+    Edit config.json:
+    {
+      "webb_url": "https://webbatx.com/",
+      "sender_email": "YOUR_EMAIL@gmail.com",
+      "sender_password": "YOUR_16_CHAR_APP_PASSWORD",
+      "recipient_email": "YOUR_EMAIL@gmail.com"
+    }
+
+Step 4: Test It
+    python3 test_system.py
+
+Step 5: Start Scheduler
+    python3 scheduler.py
+
+    (Keep it running in background with nohup or screen)
+
+─────────────────────────────────────────────────────────────────
+
+🎯 WHAT IT DOES
+- Scrapes Webb Austin events every Sunday at 9 AM
+- Sends you a beautiful HTML email with all upcoming events
+- Each event includes title, date, description, and link
+
+─────────────────────────────────────────────────────────────────
+
+📁 KEY FILES
+- webb_events_emailer.py  → Main scraper/emailer
+- scheduler.py            → Weekly scheduler
+- config.json             → Your settings
+- test_system.py          → Test before running
+- webb_emailer.log        → Application logs
+
+─────────────────────────────────────────────────────────────────
+
+🔧 COMMON COMMANDS
+
+Send Email Now (one-time):
+    python3 webb_events_emailer.py
+
+Test Everything:
+    python3 test_system.py
+
+Start Weekly Scheduler:
+    python3 scheduler.py
+
+Run in Background (Linux/Mac):
+    nohup python3 scheduler.py &
+
+Setup Cron Job (Alternative):
+    chmod +x setup_scheduler.sh
+    ./setup_scheduler.sh
+
+Check if Running:
+    ps aux | grep scheduler.py
+
+Stop Scheduler:
+    pkill -f scheduler.py
+
+View Logs:
+    tail -f webb_emailer.log
+    tail -f scheduler.log
+
+─────────────────────────────────────────────────────────────────
+
+⚙️  CUSTOMIZATION
+
+Change Schedule (edit scheduler.py line 28):
+    schedule.every().sunday.at("09:00").do(job)
+    → schedule.every().monday.at("08:00").do(job)
+
+Change Email Style (edit webb_events_emailer.py):
+    See create_html_email() method around line 145
+
+Update Scraping Logic:
+    See fetch_events() method around line 45
+
+─────────────────────────────────────────────────────────────────
+
+❗ TROUBLESHOOTING
+
+Email Not Sending?
+  - Use App Password, not regular password
+  - Enable 2-Step Verification in Google
+  - Check logs: webb_emailer.log
+
+No Events Found?
+  - Webb's site structure may have changed
+  - Check webb_emailer.log for details
+  - May need to update selectors
+
+Scheduler Not Working?
+  - Verify it's running: ps aux | grep scheduler
+  - Check scheduler.log
+  - Ensure system time is correct
+
+─────────────────────────────────────────────────────────────────
+
+🔐 SECURITY
+- NEVER commit config.json with real passwords
+- Use App Passwords only
+- Keep credentials secure
+
+─────────────────────────────────────────────────────────────────
+
+📧 Expected Email Format:
+┌─────────────────────────────────────┐
+│ 🚀 Webb Austin Tech Events          │
+│ Your Weekly Tech Events Roundup     │
+│ January 19, 2026                    │
+├─────────────────────────────────────┤
+│                                     │
+│ ┌─────────────────────────────────┐ │
+│ │ Event Title                     │ │
+│ │ 📅 Date                         │ │
+│ │ Description...                  │ │
+│ │ [View Event Details →]          │ │
+│ └─────────────────────────────────┘ │
+│                                     │
+│ ┌─────────────────────────────────┐ │
+│ │ Another Event                   │ │
+│ │ ...                             │ │
+│ └─────────────────────────────────┘ │
+└─────────────────────────────────────┘
+
+─────────────────────────────────────────────────────────────────
+
+Need help? Check README.md for full documentation.
