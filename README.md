@@ -266,6 +266,9 @@ Potential improvements you could add:
 - Slack/Discord integration
 - Web dashboard to view events
 
+- What I’m pondering - why not cut out the noise from all these email subscriptions everyone gets to get weekly and/or timely digests from all things you subscribe too? Create your own aggregator. That you actually read. That actually creates a flywheel for your future work.
+
+
 ---
 
 **Created with ❤️ for the Austin tech community**
